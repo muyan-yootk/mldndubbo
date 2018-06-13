@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 定义本次Dubbo服务的提供者的应用程序名称 -->
+	<dubbo:application name="${dubbo.application.name}" />
+	<!-- 在进行Dubbo服务注册的时候一定要将服务注册到ZooKeeper之中 -->
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" 
+		timeout="${dubbo.provider.timeout}" file="${dubbo.registry.file}"/>
+	<!-- 定义Dubbo服务的提供者的相关处理配置，配置要使用的名称以及发布的端口 -->
+	<dubbo:protocol name="dubbo" port="${dubbo.protocol.port}" />
+	<!-- 将远程接口的实现子类配置到服务之中，这一个是关键的步骤 -->
+	<dubbo:service
+		interface="cn.mldn.mldndubbo.service.IMessageService"
+		ref="messageServiceImpl" version="${dubbo.interface.version}" />
+	<!-- 配置Dubbo监控程序的监控地址 -->
+	<dubbo:monitor address="${dubbo.monitor.address}"/>
+</beans>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 定义本次Dubbo服务的提供者的应用程序名称 -->
+	<dubbo:application name="${dubbo.application.name}" />
+	<!-- 在进行Dubbo服务注册的时候一定要将服务注册到ZooKeeper之中 -->
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" timeout="${dubbo.provider.timeout}"/>
+	<!-- 通过注册中心去引入远程接口实现类 -->
+	<dubbo:reference id="messageInstance"
+		interface="cn.mldn.mldndubbo.service.IMessageService"
+		version="${dubbo.interface.version}" />
+	<!-- 配置Dubbo监控程序的监控地址 -->
+	<dubbo:monitor address="${dubbo.monitor.address}"/>
+
+
+</beans>
