@@ -13,7 +13,7 @@
 	<!-- 通过注册中心去引入远程接口实现类 -->
 	<dubbo:reference id="messageInstance"
 		interface="cn.mldn.mldndubbo.service.IMessageService"
-		version="${dubbo.interface.version}" />
+		version="${dubbo.interface.version}" loadbalance="roundrobin" cluster="forking" />
 	<!-- 配置Dubbo监控程序的监控地址 -->
 	<dubbo:monitor address="${dubbo.monitor.address}"/>
 
